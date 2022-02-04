@@ -27,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
     /*Once clicking on the convert button this method will be executed
     & it will convert either from LBP to USD or vice versa */
     public void onConvert(View v) {
-        String usd_value = usd_input.getText().toString();
-        String lbp_value = lbp_input.getText().toString();
+        // Geting the object displayed and converting it to string with removing spaces
+        String usd_value = usd_input.getText().toString().replaceAll(" ","");
+        String lbp_value = lbp_input.getText().toString().replaceAll(" ","");
 
         if (usd_value.length() == 0 && lbp_value.length() == 0) {
             String message = "Error: You should fill one of the field.";
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 Double from_usd = Double.parseDouble(usd_value);
                 double to_lbp = from_usd * lbp_usd_rate;
                 int lbp_value_to_display = (int) to_lbp;
+                // setting the answer in the lbp plain text
+                lbp_input.setText(lbp_value_to_display + "");
                 Toast.makeText(getApplicationContext(),lbp_value_to_display + " LBP", Toast.LENGTH_LONG).show();
             }
             catch(NumberFormatException e){
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Double from_lbp = Double.parseDouble(lbp_value);
                 double to_usd = from_lbp / lbp_usd_rate;
+                // setting the answer in the usd plain text
+                usd_input.setText(to_usd + "");
                 Toast.makeText(getApplicationContext(),to_usd + " USD", Toast.LENGTH_LONG).show();
             }
             catch(NumberFormatException e) {
